@@ -64,7 +64,6 @@ npm build
 ## 🚀 <b>Cheatsheets of MongoDB query in shell</b>
 
 ## 📌 <b>MongoDB - database related query syntax</b>
-
 <hr>
 
 - Give all the databases.
@@ -94,7 +93,6 @@ db.dropDatabase()
 ```
 
 ## 📌 <b>MongoDB - Collections/table related query syntax</b>
-
 <hr>
 
 - creating new collection/table of users name
@@ -113,7 +111,6 @@ db.users.drop()
 - <b><i>We will be working through out with users collection/table as an example.</i></b>
 
 ## 📌 <b>MongoDB - document/row related query syntax</b>
-
 <hr>
 
 ### ⭐ inserting document/row
@@ -194,7 +191,6 @@ db.users.deleteMany({name:'amul'})
 ```
 
 ## 📌 <b>MongoDB - Operators</b>
-
 <hr>
 
 ### ⭐ Compairison Operators
@@ -255,7 +251,6 @@ db.users.find(
 )
 ```
 
-
 - $and - either of condition should be true it would return that document/row.
   - $or: [condition1 , condition2]
 
@@ -269,3 +264,85 @@ db.users.find(
   }
 )
 ```
+
+## 📌 <b>MongoDB - Indexing</b>
+<hr>
+
+### ⭐ Theory about Indexing
+
+- we use indexing for optimizing the query.
+- MongoDB internally use <i>B Tree Data Structure</i>
+for implementing index. 
+-  you should have good number of documents/rows to test the indexes.
+- so using for loop just created more number of documents/rows in shell.
+```sh
+for(let i = 1; i<=4000; i++ )
+{
+  db.users.insertOne({ name:'user'+i , age:i })
+}
+```
+- press enter now you have more number of documents
+- <i> apply index in unique fields </i>
+
+1. fire normal query 
+```sh
+db.users.find({name: 'user2000'}) 
+```
+2. you wont see difference that is totally ok but also see the time at which the query runs
+```sh
+db.users.find({name:'user2000'}).explain('executionStats')
+```
+- In executionStatus the value of 
+  - executionTimeMillis is high
+  - totalDocsExamined is no of documents.
+
+- executionTimeMillis will be there with some value in milliseconds. But , in real time we dont have documents in thousand but in millions 
+
+- Problem :- all the documents getting checked as well.
+  - means even for one records it will check the whole
+  thousand or millions of records which is time consuming.
+
+- Solution:- using index we can solve this problem.
+  - at name field we do indexing so the data get sorted and index will be maintained seprately that defines the data lies in which range.
+  - now the document will not searched only index will searched will get document id and from there we will fetch the data. 
+
+
+### ⭐ Creating indexes.
+
+- createIndex() - it takes object and create index.
+```sh
+db.users.createIndex({ name:1 })
+```
+- Now run the same query after this command
+```sh
+db.users.find({name:'user2000'}).explain('executionStats')
+```
+- In executionStatus the value of 
+  - executionTimeMillis dropdown
+  - totalDocsExamined is also 1
+- <i> So, wherever the data is in large scale and reading more time use index - amazon search bar</i>
+- due to index - read becomes faster and write slower.
+  - because you have to search in index and then update it .
+
+### ⭐ Getting all the indexes in documents.
+
+- getIndexes() - will give the array of objects.
+```sh
+db.users.getIndexes()
+```
+- Each object contains the name provided by MongoDB. 
+- MongoDB provide bydefault index in _id field
+  - if you are passing id for fetching the record fetch faster as well. 
+
+
+### ⭐ deleting the index
+
+- dropIndex() - it takes the name of the index and delete that index
+```sh
+db.users.dropIndex('name_1')
+```
+- Also check the _id will have index or not by executionStats
+```sh
+db.users.find({_id:ObjectId("63f8f4bcf5c6bda75cf2d664")}).explaind('executionStats')
+```
+- Less executionTimeMillis in milliseconds and totalKeysExamined is also 1 only means _id field is by default index provided by MongoDB. 
