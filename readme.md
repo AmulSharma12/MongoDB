@@ -241,7 +241,7 @@ db.users.find( {age: {$ne:21}} )
 
 ### ⭐ Logical Operators
 
-- $and - both condition should be true then it will return the document.
+- $or- both condition should be true then it will return the document.
   - $and: [condition1 , condition2]
 
 ```sh
