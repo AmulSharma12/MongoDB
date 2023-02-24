@@ -40,26 +40,82 @@
 }
 ```
 
-## 🚀 <b>MongoDB Installation  </b>
+## 🚀 <b>MongoDB Installation </b>
 
 - Search MongoDB community server on google.
 - [MongoDB community server link](https://www.mongodb.com/try/download/community) , Location might be change so search on google if not work.
 - After installation copy both of the path and paste it in environement variables.
+
 ```path
 C:\Program Files\MongoDB\Server\6.0\bin
 C:\Program Files\MongoSH
 ```
-- window+s  search EDIT THE SYSTEM ENVIRONMENT VARIABLES.
+
+- window+s search EDIT THE SYSTEM ENVIRONMENT VARIABLES.
 - click on environement variables -> inside user variables click on path -> edit option below -> new -> paste it ->okay
 - use mongosh in cmd
+
 ```cmd
 npm build
 ```
+
 - Now you can good to go for query in mongosh shell.
 
-## 🚀 <b>Cheatsheets of MongoDB query</b>
+## 🚀 <b>Cheatsheets of MongoDB query in shell</b>
 
-- showing all databases.
+<br>
+
+## 📌 <b>MongoDB - database related query syntax</b>
+
+<br>
+
+- Give all the databases.
+
+```cmd
+show dbs
 ```
-show dbs;
+
+- creating a new database
+  - if database already exist switch to that database.
+
+```sh
+use databasename
 ```
+
+- database you are currently working.
+
+```sh
+db
+```
+
+- Deleting the database
+  - must check the database you are working by above command then only delete the database.
+
+```sh
+db.dropDatabase()
+```
+
+<br>
+
+## 📌 <b>MongoDB - Collections/table related query syntax</b>
+
+<br>
+
+- creating new collection/table of users name
+
+```sh
+db.createCollections('users')
+```
+
+- droping the collection/table
+  - users is the name of collection/table.
+
+```sh
+db.users.drop()
+```
+
+- <b><i>We will be working through out with users collection/table as an example.</i></b>
+
+<br>
+
+

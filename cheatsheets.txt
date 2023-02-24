@@ -1,3 +1,157 @@
-//view all databases
+📌 MongoDB commands for database
+=================================
+=> view all databases
 show dbs;
  
+=> creating a new/switch databases
+ use databasename
+
+=> View current database
+ db
+
+=> deleting database
+ db.dropDatabase()
+
+📌 MongoDB commands for collection/table
+=======================================
+=> all collections/table
+show collections
+
+=> creating a new  collection  
+db.createCollections('admin')
+
+=> droping a collection
+db.admin.drop()
+
+📌 MongoDB commands for docuemnts/rows
+======================================
+=> Show all  rows/documents in a collections
+db.admin.find()
+=> Show all  rows/documents in a collections in prettified way
+db.admin.find().pretty()
+
+
+
+=> inserting document/row - single row
+db.admin.insertOne({
+    "name": "amul",
+    "age": 21,
+    "language":"javascript"
+})
+
+
+
+=> inserting multiple rows - takes array of objects
+db.admin.insertMany([{
+    "name": "divyang",
+    "age": 4,
+    "language":"javascript"
+}, 
+{
+    "name": "shivam",
+    "age": 6,
+    "language":"javascript"
+}])
+
+
+
+=> Search in a MongoDB database -> pass object in find()
+db.admin.find({name:"amul"}).pretty()
+
+📌 MongoDB commands for docuemnts/rows
+======================================
+
+📌 limit(no)
+=> want limited no of rows/documents -  .limit(no)
+db.admin.find().limit(2)
+db.admin.find().pretty().limit(2)
+db.admin.find().limit(2).pretty()
+
+📌 count()
+=> count the no of rows in the output 
+db.admin.find().count()
+
+
+=> limit with count use
+db.admin.find().count()
+db.admin.find().limit(2).count()
+db.admin.find({name:"amul"}).count()
+db.admin.find({name:"amul"}).limit(2).count()
+
+
+📌 sort({}) - sort() method take field as object 
+- object is key:value pair   key=fieldname and value is 1/-1
+- 1 for ascending and -1 for descending
+db.admin.find().sort({age:1}).pretty()
+
+
+
+📌 findOne() - Find the first row matching the object.
+db.admin.findOne({name:"amul"}).pretty() 
+
+
+
+
+📌 update({object}, ) - for updating the rows/documents that are already present.
+db.admin.update({name:'divyang'},
+   { $set:{
+    "name": "divyang",
+    "age": 21,
+    "language":"python"
+    }})
+
+//matched modified upsert
+//upsert -> at the time of update if they want to insert
+//if the object doesn't match then do you want to allow insert ?
+
+db.admin.update({name:'Anonymous'},
+   { $set:{
+    "name": "anon",
+    "age": 21,
+    "language":"unknown"
+    }},
+    {upsert:true})
+
+
+
+
+📌 MongoDB Update operators
+=======================================
+=> MongoDB incremenet operators 
+db.admin.update({name:"anon"},
+{
+    $inc:{
+        age:3
+    }
+})
+
+
+
+=> MongoDB Rename operators 
+=> in case of no filter -> it will apply in all of the documents fields.
+db.admin.update({name:"anon"},
+{
+    $rename:{
+        language:"nmap"
+    }
+})
+
+
+
+📌 MongoDB Remove docuemnt
+=======================================
+db.admin.remove({name:"amul"})
+
+
+📌 MongoDB Lessthan/Greaterthan/Lessthanequal/greaterthanequal
+ $lt and $gt
+=======================================
+db.admin.find({age: {$lt:20}})
+db.admin.find({age: {$gt:20}})
+
+
+
+📌 MongoDB Atlas
+=======================================
+- MongoDB on cloud - atlas 
+
