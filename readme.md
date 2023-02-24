@@ -118,4 +118,82 @@ db.users.drop()
 
 <br>
 
+### 📌 <b>MongoDB - document/row related query syntax</b>
+
+<br>
+
+### ⭐ inserting document/row
+
+- inserting a single document in a collections
+  - it takes javascript object in form of key:value pair
+
+```sh
+db.users.insertOne({name:"xyz", age:21})
+```
+
+- insertMany() takes array of objects
+
+```sh
+db.users.insertMany(
+  [
+      {
+          name:"amul"
+          age:21
+      },
+      {
+          name:"pedro",
+          age:29
+      }
+  ]
+)
+```
+
+### ⭐ Filter in collection/table using find()
+
+- give all the rows/document in users table
+
+```sh
+db.users.find()
+```
+- give all the rows/document in pretty/formatted form
+```sh
+db.users.find().pretty()
+```
+
+- give all the rows/document in users table matching the object with name as amul.
+
+```sh
+db.users.find( {name:"amul"} )
+```
+
+### ⭐ updating document/row
+
+- updating the existing document
+  - update(filter , updation , options )
+  - first object is filter, second updation, third option
+
+```sh
+db.users.update({name:'amul'},
+  {
+      $set:{
+          name:'amul sharma'
+      }
+  }
+)
+```
+
+### ⭐ deleting document/row
+
+- deleting single document 
+  - also if multiple document present  with that filter older document will be delete at first.
+
+```sh
+db.users.deleteOne({name:'amul'})
+```
+
+- deleting all the document with that filter
+
+```sh
+db.users.deleteMany({name:'amul'})
+```
 
