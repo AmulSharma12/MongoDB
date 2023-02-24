@@ -63,11 +63,9 @@ npm build
 
 ## 🚀 <b>Cheatsheets of MongoDB query in shell</b>
 
-<br>
-
 ## 📌 <b>MongoDB - database related query syntax</b>
 
-<br>
+<hr>
 
 - Give all the databases.
 
@@ -95,11 +93,9 @@ db
 db.dropDatabase()
 ```
 
-<br>
-
 ## 📌 <b>MongoDB - Collections/table related query syntax</b>
 
-<br>
+<hr>
 
 - creating new collection/table of users name
 
@@ -116,11 +112,9 @@ db.users.drop()
 
 - <b><i>We will be working through out with users collection/table as an example.</i></b>
 
-<br>
+## 📌 <b>MongoDB - document/row related query syntax</b>
 
-### 📌 <b>MongoDB - document/row related query syntax</b>
-
-<br>
+<hr>
 
 ### ⭐ inserting document/row
 
@@ -155,7 +149,9 @@ db.users.insertMany(
 ```sh
 db.users.find()
 ```
+
 - give all the rows/document in pretty/formatted form
+
 ```sh
 db.users.find().pretty()
 ```
@@ -184,8 +180,8 @@ db.users.update({name:'amul'},
 
 ### ⭐ deleting document/row
 
-- deleting single document 
-  - also if multiple document present  with that filter older document will be delete at first.
+- deleting single document
+  - also if multiple document present with that filter older document will be delete at first.
 
 ```sh
 db.users.deleteOne({name:'amul'})
@@ -197,3 +193,79 @@ db.users.deleteOne({name:'amul'})
 db.users.deleteMany({name:'amul'})
 ```
 
+## 📌 <b>MongoDB - Operators</b>
+
+<hr>
+
+### ⭐ Compairison Operators
+
+- $eq - return all document equal to specified value.
+
+```sh
+db.users.find( {age: {$eq:21}})
+```
+
+```sh
+db.users.find( {name: {$eq:'amul'}})
+```
+
+- $lt - return all document less than specified value.
+
+```sh
+db.users.find( {age: {$lt:21}} )
+```
+
+- $lte - return all document less than equal to specified value.
+
+```sh
+db.users.find( {age: {$lte:21}} )
+```
+
+- $gt- return all document greater than specified value.
+
+```sh
+db.users.find( {age: {$gt:21}} )
+```
+
+- $gte- return all document greater than equal to specified value.
+
+```sh
+db.users.find( {age: {$gte:21}} )
+```
+
+- $gte- return all document not equal to specified value.
+
+```sh
+db.users.find( {age: {$ne:21}} )
+```
+
+### ⭐ Logical Operators
+
+- $and - both condition should be true then it will return the document.
+  - $and: [condition1 , condition2]
+
+```sh
+db.users.find(
+  {
+    $and: [
+    {name: {$eq:'amul'}},
+    {age: {$eq:21}}
+    ]
+  }
+)
+```
+
+
+- $and - either of condition should be true it would return that document/row.
+  - $or: [condition1 , condition2]
+
+```sh
+db.users.find(
+  {
+    $or: [
+    {name: {$eq:'amul'}},
+    {age: {$eq:29}}
+    ]
+  }
+)
+```
